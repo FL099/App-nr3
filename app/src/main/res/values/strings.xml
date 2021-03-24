@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Cardshow</string>
+    <string name="typ">Typ: </string>
+    <string name="rarity">Seltenheit: </string>
+    <string name="text">Text:</string>
+    <string name="set">Set:</string>
+    <string name="flavor">Flavor:</string>
+    <string name="click_me">Mehr Info: </string>
 </resources>
