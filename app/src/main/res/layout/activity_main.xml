@@ -13,7 +13,7 @@
         android:id="@+id/btn_swap"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hi"/>
+        android:text="@string/next"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_main"

@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
 
     private ListAdapter mAdapter;
     private Button btn_swap;
-    private boolean bool_new = false;
     private static final String KEY_INT = "Seitennummer";
     private int pgNum = 1;
 
@@ -50,6 +49,10 @@ public class MainActivity extends AppCompatActivity {
         list.setHasFixedSize(true);
 
         mAdapter = new ListAdapter(generateContent());
+        btn_swap.setEnabled(false);
+        WebRunnable webRunnable = new WebRunnable("https://api.magicthegathering.io/v1/cards?page="+ pgNum);
+        new Thread(webRunnable).start();
+        pgNum++;
         list.setAdapter(mAdapter);
 
         mAdapter.setOnListItemClickListener(new ListAdapter.ListItemClickListener() {
@@ -65,15 +68,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 btn_swap.setEnabled(false);
-                /*if(bool_new){
-                    mAdapter.swapData(generateContent());
-                    bool_new = false;
-                } else {*/
-                    //mAdapter.swapData(generateContentNew());
-                    WebRunnable webRunnable = new WebRunnable("https://api.magicthegathering.io/v1/cards?page="+ pgNum);
-                    new Thread(webRunnable).start();
-                    bool_new = true;
-                /*}*/
+                WebRunnable webRunnable = new WebRunnable("https://api.magicthegathering.io/v1/cards?page="+ pgNum);
+                new Thread(webRunnable).start();
                 pgNum++;
 
             }
@@ -94,12 +90,6 @@ public class MainActivity extends AppCompatActivity {
         return data;
     }
 
-    /*private List<MagicCard> generateContentNew() {
-        List<MagicCard> data = new LinkedList<>();
-        data.add(new MagicCard("DASDA", "Wasser", "Rare", "yellow"));
-        data.add(new MagicCard("Dudli", "Earth", "Grey", "brown"));
-        return data;
-    }*/
 
     class WebRunnable implements Runnable {
 
@@ -154,6 +144,8 @@ public class MainActivity extends AppCompatActivity {
 
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
+                mainHandler.post(() ->Toast.makeText(MainActivity.this, "Internetverbindung fehlgeschlagen", Toast.LENGTH_SHORT).show());
+
             }
             mainHandler.post(() -> btn_swap.setEnabled(true));
         }
