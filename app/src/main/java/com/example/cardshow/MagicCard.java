@@ -14,7 +14,7 @@ public class MagicCard implements Parcelable {
     private String text;
     private String set;
     private String flavor;
-    private String artist;
+    private String artist = "unbekannt";
 
     public MagicCard(String name, String type, String rarity, String colors) {
         this.name = name;
