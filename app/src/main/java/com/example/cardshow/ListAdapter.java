@@ -23,6 +23,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ItemViewHolder
         this.mItems = mItems;
     }
 
+
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -77,6 +78,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ItemViewHolder
 
 
         public void bind(int position) {
+
             tvName.setText(mItems.get(position).getName());
             tvType.setText(mItems.get(position).getType());
             llItem.setBackgroundResource(toCol(mItems.get(position).getRarity()));
